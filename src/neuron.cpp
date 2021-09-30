@@ -1,9 +1,9 @@
-#include "../include/neuron.h"
+//#include "../include/neuron.h"
+#include "neuron.hpp"
 
 
 neuron::neuron()
 {
-    std::cout << Vm << std::endl;
 }
 
 neuron::~neuron()

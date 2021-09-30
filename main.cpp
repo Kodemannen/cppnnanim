@@ -1,9 +1,15 @@
-#include "../include/neuron.h"
+#include "neuron.hpp"
+#include "coordinates.hpp"
+
 #include <iostream>
 #include <fstream>
 
-#include <stdio.h> // for printf
+#include <stdio.h>  // for printf
 
+#include <math.h>   // sin and cos
+
+
+#include <vector>
 
 #include <armadillo>
 
@@ -19,13 +25,15 @@
 // for delay:
 #include <unistd.h>
 
+#define PI 3.14159265
 
-int const WINDOW_HEIGHT = 200;
-int const WINDOW_WIDTH = 450; 
+
+int const WINDOW_HEIGHT = 300;
+int const WINDOW_WIDTH = 300; 
  
 sf::Uint8 * pixels = new sf::Uint8[WINDOW_HEIGHT*WINDOW_WIDTH*4];
 
-void fillPixels(arma::mat state);
+sf::Uint8* fillPixelsWithArmaValues(arma::mat state);
 arma::mat getNextGen(arma::mat state, arma::mat newState); 
 arma::mat enlargeMatrix(arma::mat matr, int k); 
 
@@ -70,22 +78,26 @@ int main () {
     //----------------------------------------
     // initialize state matrix:
     //----------------------------------------
-    //arma::mat state = arma::randi<arma::mat>( WINDOW_WIDTH, WINDOW_HEIGHT , arma::distr_param(0, 1) );  
-    arma::mat state = arma::zeros<arma::mat>( WINDOW_WIDTH, WINDOW_HEIGHT );  
+    // arma::mat state = arma::randi<arma::mat>(WINDOW_WIDTH, WINDOW_HEIGHT, 
+    //                                          arma::distr_param(0, 255) );  
+
+    arma::mat state = arma::zeros<arma::mat>(WINDOW_WIDTH, WINDOW_HEIGHT);  
+
+    
 
 
-
-    arma::mat newState = state;
+    //arma::mat newState = state;
 
 
 
     // initialize pixels matrix:
     //sf::Uint8* pixels = new sf::Uint8[W*H*4];
 
-    arma::mat enlarged = enlargeMatrix(state, enlargementFactor);
-    //sf::Uint8* pixels; 
-    fillPixels(enlarged);  
+    //arma::mat enlarged = enlargeMatrix(state, enlargementFactor);
+    ////sf::Uint8* pixels; 
+    //pixels = fillPixelsWithArmaValues(enlarged);  
     
+
 
 
     sf::Texture texture;
@@ -159,11 +171,11 @@ int main () {
         // if (enlargementFactor > 1)
         // {
         //     enlarged = enlargeMatrix(newState, enlargementFactor);
-        //     pixels = fillPixels(enlarged);
+        //     pixels = fillPixelsWithArmaValues(enlarged);
         // }
         // else
         // {
-        //     pixels = fillPixels(newState);
+        //     pixels = fillPixelsWithArmaValues(newState);
         // }
 
        
@@ -176,13 +188,34 @@ int main () {
         // update old state
         //----------------------------------------
         //state = newState;
-        //state = arma::randi<arma::mat>( WINDOW_WIDTH, WINDOW_HEIGHT , arma::distr_param(0, 1) );  
+        
 
-        state = add_circle(state, 10, 50, 50);
+        state = add_circle(state, 100, 100, 50);
+
+
+
+        int n_rows = state.n_rows;
+        int n_cols = state.n_cols;
+
+        //int ind=0;
+        //for (int i=0; i<n_rows; i++) {
+        //    for (int j=0; j<n_cols; j++) {
+        //        //state[i,j] = 225;
+        //        std::cout << state[i,j] << std::endl;
+        //        std::cout << "penu" << std::endl;
+        //    }
+        //}
+
 
         
-        fillPixels(state);
+        pixels = fillPixelsWithArmaValues(state);
 
+        // std::cout << "hmmmm"  << std::endl;
+        // exit(0);
+        
+
+        //std::cout << "balletak"  << std::endl;
+        //exit(0);
 
         texture.update(pixels);
         window.draw(sprite);
@@ -220,7 +253,7 @@ int main () {
 
 
 
-void fillPixels(arma::mat state){ 
+sf::Uint8* fillPixelsWithArmaValues(arma::mat state){ 
 
     int const H = state.n_rows;
     int const W = state.n_cols;
@@ -233,7 +266,8 @@ void fillPixels(arma::mat state){
     for (int i=0; i<H; i++) {
         for (int j=0; j<W; j++) {
 
-            val = state(i,j)*200;
+            val = state(i,j);
+            //val = state[i,j];     // this causes problems!
 
             // each pixel is represented by a set of four numbers
             // between 0 and 255
@@ -246,7 +280,7 @@ void fillPixels(arma::mat state){
         }
     }
 
-    //return pixels;
+    return pixels;
 }
 
 
@@ -298,27 +332,99 @@ arma::mat enlargeMatrix(arma::mat matr, int k) {
 
 arma::mat add_circle(arma::mat state, int radius, int locx, int locy)
 {
+    // radius is measured in number of pixels 
+    // (locx, locy) is the top left corner 
+    
+    // The number of elements must be dependent on the radius
+    // 
+    
+    int n_rows = state.n_rows;
+    int n_cols = state.n_cols;
+
+
+    Coords coords = {1,2};
+
+
+    std::vector<Coords> circle;
+
+    int previous_xcoord;
+    int previous_ycoord;
+
+    int count = 0;
+    bool done = false;
+
+
+    double theta = 0;
+    double delta_theta = 2*PI/1000;
+
     
 
-    // int ind=0; 
-    // int val;
-    // for (int i=0; i<WINDOW_HEIGHT; i++) {
-    //     for (int j=0; j<WINDOW_WIDTH; j++) {
 
-    //         val = 255;
+    //// go incrementally around in a circle and create coordinates 
+    while (not done)
+    {
 
-    //         // each pixel is represented by a set of four numbers
-    //         // between 0 and 255
-    //         pixels[ind]   = 255;      // R
-    //         pixels[ind+1] = 255;      // G
-    //         pixels[ind+2] = 255;      // B
-    //         pixels[ind+3] = 255;      // a
 
-    //         ind += 4;
+        int xcoord = int(radius*cos(theta));
+        int ycoord = int(radius*sin(theta));
+
+
+        // in case that the delta_angle is very small, we may not always move away
+        // from the point, and we want to just continue
+        if (xcoord==previous_xcoord and ycoord==previous_ycoord)
+        {
+
+            theta += delta_theta;
+            count++;
+            continue;
+        }
+
+
+        //std::cout << xcoord << ", " << ycoord << std::endl;
+
+
+
+        state(xcoord+radius, ycoord+radius) = 255;
+
+        //Coords coordinate = {, };
+
+        previous_xcoord = xcoord;
+        previous_ycoord = ycoord;
+
+        theta += delta_theta;
+        //std::cout << theta << std::endl;
+
+        count++;
+
+        if (theta >= 2*PI)
+        {
+            std::cout << "Ferdig" << std::endl;
+            done = true;
+        }
+
+    }
+
+
+
+    // std::cout << "eggu"  << std::endl;
+    // exit(0);
+    // vectors seems to initialize 0s by default
+    // 2nd argument is the value of the elements!
+    //std::vector<int> v1(8, 3);
+    //std::cout << v1.size() << std::endl;
+
+
+
+
+    // for (int i=0; i<n_rows; i++) {
+    //     for (int j=0; j<n_cols; j++) {
+    //         state[i,j] = 255;
     //     }
     // }
-    // std::cout << "hore" << std::endl;
-    // return state;
+    
+
+
+    return state;
 };
 
 
