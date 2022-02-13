@@ -7,12 +7,17 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +4 main.cpp
-badd +1 include/neuron.h
+badd +77 main.cpp
+badd +16 include/neuron.hpp
+badd +1 .
 badd +0 src/neuron.cpp
-badd +2 ~/repos/useful-stuff/dotfiles/bashaliases.sh
+badd +5 include/coordinates.hpp
+badd +88 include/armastuff.hpp
+badd +0 src/armastuff.cpp
 argglobal
 %argdel
+$argadd main.cpp
+set stal=2
 edit main.cpp
 set splitbelow splitright
 wincmd _ | wincmd |
@@ -29,11 +34,11 @@ set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 121 + 106) / 212)
-exe '2resize ' . ((&lines * 25 + 26) / 52)
-exe 'vert 2resize ' . ((&columns * 90 + 106) / 212)
-exe '3resize ' . ((&lines * 24 + 26) / 52)
-exe 'vert 3resize ' . ((&columns * 90 + 106) / 212)
+exe 'vert 1resize ' . ((&columns * 105 + 106) / 212)
+exe '2resize ' . ((&lines * 25 + 23) / 46)
+exe 'vert 2resize ' . ((&columns * 106 + 106) / 212)
+exe '3resize ' . ((&lines * 18 + 23) / 46)
+exe 'vert 3resize ' . ((&columns * 106 + 106) / 212)
 argglobal
 setlocal fdm=manual
 setlocal fde=0
@@ -44,15 +49,15 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 4 - ((3 * winheight(0) + 25) / 50)
+let s:l = 120 - ((34 * winheight(0) + 22) / 44)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-4
+120
 normal! 0
 wincmd w
 argglobal
-if bufexists("include/neuron.h") | buffer include/neuron.h | else | edit include/neuron.h | endif
+if bufexists("include/neuron.hpp") | buffer include/neuron.hpp | else | edit include/neuron.hpp | endif
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -62,11 +67,11 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 12) / 25)
+let s:l = 5 - ((4 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
+5
 normal! 0
 wincmd w
 argglobal
@@ -80,20 +85,100 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 12) / 24)
+let s:l = 3 - ((2 * winheight(0) + 9) / 18)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+3
+normal! 0
+wincmd w
+exe 'vert 1resize ' . ((&columns * 105 + 106) / 212)
+exe '2resize ' . ((&lines * 25 + 23) / 46)
+exe 'vert 2resize ' . ((&columns * 106 + 106) / 212)
+exe '3resize ' . ((&lines * 18 + 23) / 46)
+exe 'vert 3resize ' . ((&columns * 106 + 106) / 212)
+tabedit main.cpp
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd w
+set nosplitbelow
+wincmd t
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe 'vert 1resize ' . ((&columns * 105 + 106) / 212)
+exe '2resize ' . ((&lines * 21 + 23) / 46)
+exe 'vert 2resize ' . ((&columns * 106 + 106) / 212)
+exe '3resize ' . ((&lines * 21 + 23) / 46)
+exe 'vert 3resize ' . ((&columns * 106 + 106) / 212)
+argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 185 - ((42 * winheight(0) + 21) / 43)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+185
+normal! 028|
+wincmd w
+argglobal
+if bufexists("include/armastuff.hpp") | buffer include/armastuff.hpp | else | edit include/armastuff.hpp | endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 88 - ((20 * winheight(0) + 10) / 21)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+88
+normal! 014|
+wincmd w
+argglobal
+if bufexists("src/armastuff.cpp") | buffer src/armastuff.cpp | else | edit src/armastuff.cpp | endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 1 - ((0 * winheight(0) + 10) / 21)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 1
 normal! 0
 wincmd w
-2wincmd w
-exe 'vert 1resize ' . ((&columns * 121 + 106) / 212)
-exe '2resize ' . ((&lines * 25 + 26) / 52)
-exe 'vert 2resize ' . ((&columns * 90 + 106) / 212)
-exe '3resize ' . ((&lines * 24 + 26) / 52)
-exe 'vert 3resize ' . ((&columns * 90 + 106) / 212)
-tabnext 1
+3wincmd w
+exe 'vert 1resize ' . ((&columns * 105 + 106) / 212)
+exe '2resize ' . ((&lines * 21 + 23) / 46)
+exe 'vert 2resize ' . ((&columns * 106 + 106) / 212)
+exe '3resize ' . ((&lines * 21 + 23) / 46)
+exe 'vert 3resize ' . ((&columns * 106 + 106) / 212)
+tabnext 2
+set stal=1
 if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
