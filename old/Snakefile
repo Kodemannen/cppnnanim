@@ -1,0 +1,29 @@
+
+
+rule hello:
+    input:
+        'main.cpp',
+        'src/neuron.cpp'
+
+    output: 
+        'test'
+
+    shell:
+        """
+        g++ main.cpp src/neuron.cpp src/armastuff.cpp \
+            -I include/ \
+            -I $HOME/miniconda3/envs/cppenv/include/ \
+            -o {output} \
+        """
+
+    # shell:
+    #     """
+    #     g++ main.cpp src/neuron.cpp src/armastuff.cpp \
+    #         -I include/ \
+    #         -o {output} -std=c++2a -O2 \
+    #         -larmadillo \
+    #         -lsfml-graphics -lsfml-window -lsfml-system \
+    #         -lglut -lGLU -lGL
+    #     """
+
+    

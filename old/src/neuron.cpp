@@ -3,6 +3,8 @@
 
 neuron::neuron()
 {
+    std::cout << "wtf " << std::endl;
+
 }
 
 neuron::~neuron()

@@ -1,0 +1,15 @@
+
+
+rule testingtesting:
+    input:
+        'main.cpp',
+
+    output: 
+        'test'
+
+    shell:
+        """
+        g++ {input} \
+            -I $HOME/miniconda3/envs/cppenv/include/ \
+            -o {output} \
+        """
