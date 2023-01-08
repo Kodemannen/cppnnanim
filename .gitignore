@@ -1,1 +1,3 @@
 circle
+.snakemake
+__pycache__
