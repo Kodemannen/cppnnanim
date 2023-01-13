@@ -1,4 +1,12 @@
 rule all:
-    input: "src/main.cpp"
-    output: "circle"
-    shell: "g++ -o circle src/main.cpp -Iinclude -lsfml-graphics -lsfml-window -lsfml-system"
+    input: 
+        "src/main.cpp",
+        "src/Neuron.cpp",
+        "include/Neuron.hpp",
+    output: "Neuron"
+    log: 
+        out = ".logerr/_stdout.log",
+        err = ".logerr/_stderr.err"
+    shell: "g++ -o {output} {input} -Iinclude -lsfml-graphics -lsfml-window -lsfml-system 2> {log.err} 1> {log.out}"
+
+

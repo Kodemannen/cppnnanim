@@ -1,24 +1,30 @@
 let SessionLoad = 1
-let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-1 siso=-1
 let v:this_session=expand("<sfile>:p")
 silent only
+silent tabonly
 cd ~/repos/cppnnanim
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
-set shortmess=aoO
-badd +77 main.cpp
-badd +16 include/neuron.hpp
-badd +1 .
-badd +0 src/neuron.cpp
-badd +5 include/coordinates.hpp
-badd +88 include/armastuff.hpp
-badd +0 src/armastuff.cpp
+let s:shortmess_save = &shortmess
+if &shortmess =~ 'A'
+  set shortmess=aoOA
+else
+  set shortmess=aoO
+endif
+badd +11 Snakefile
+badd +5 compile_and_run.sh
+badd +17 include/Neuron.hpp
+badd +24 src/main.cpp
+badd +5 src/Neuron.cpp
+badd +1 README.md
 argglobal
 %argdel
-$argadd main.cpp
-set stal=2
-edit main.cpp
+$argadd Snakefile
+edit src/main.cpp
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
 set splitbelow splitright
 wincmd _ | wincmd |
 vsplit
@@ -28,18 +34,22 @@ wincmd _ | wincmd |
 split
 1wincmd k
 wincmd w
-set nosplitbelow
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
 wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
 set winminheight=0
 set winheight=1
 set winminwidth=0
 set winwidth=1
-exe 'vert 1resize ' . ((&columns * 105 + 106) / 212)
-exe '2resize ' . ((&lines * 25 + 23) / 46)
-exe 'vert 2resize ' . ((&columns * 106 + 106) / 212)
-exe '3resize ' . ((&lines * 18 + 23) / 46)
-exe 'vert 3resize ' . ((&columns * 106 + 106) / 212)
+exe 'vert 1resize ' . ((&columns * 87 + 87) / 175)
+exe '2resize ' . ((&lines * 17 + 19) / 38)
+exe 'vert 2resize ' . ((&columns * 87 + 87) / 175)
+exe '3resize ' . ((&lines * 18 + 19) / 38)
+exe 'vert 3resize ' . ((&columns * 87 + 87) / 175)
 argglobal
+balt README.md
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -49,15 +59,43 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 120 - ((34 * winheight(0) + 22) / 44)
+let &fdl = &fdl
+let s:l = 25 - ((24 * winheight(0) + 18) / 36)
 if s:l < 1 | let s:l = 1 | endif
-exe s:l
+keepjumps exe s:l
 normal! zt
-120
+keepjumps 25
+normal! 013|
+wincmd w
+argglobal
+if bufexists(fnamemodify("include/Neuron.hpp", ":p")) | buffer include/Neuron.hpp | else | edit include/Neuron.hpp | endif
+if &buftype ==# 'terminal'
+  silent file include/Neuron.hpp
+endif
+balt Snakefile
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 17 - ((16 * winheight(0) + 8) / 17)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 17
 normal! 0
 wincmd w
 argglobal
-if bufexists("include/neuron.hpp") | buffer include/neuron.hpp | else | edit include/neuron.hpp | endif
+if bufexists(fnamemodify("src/Neuron.cpp", ":p")) | buffer src/Neuron.cpp | else | edit src/Neuron.cpp | endif
+if &buftype ==# 'terminal'
+  silent file src/Neuron.cpp
+endif
+balt include/Neuron.hpp
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -67,128 +105,36 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-let s:l = 5 - ((4 * winheight(0) + 12) / 25)
+let &fdl = &fdl
+let s:l = 6 - ((5 * winheight(0) + 9) / 18)
 if s:l < 1 | let s:l = 1 | endif
-exe s:l
+keepjumps exe s:l
 normal! zt
-5
-normal! 0
+keepjumps 6
+normal! 032|
 wincmd w
-argglobal
-if bufexists("src/neuron.cpp") | buffer src/neuron.cpp | else | edit src/neuron.cpp | endif
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let s:l = 3 - ((2 * winheight(0) + 9) / 18)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-3
-normal! 0
-wincmd w
-exe 'vert 1resize ' . ((&columns * 105 + 106) / 212)
-exe '2resize ' . ((&lines * 25 + 23) / 46)
-exe 'vert 2resize ' . ((&columns * 106 + 106) / 212)
-exe '3resize ' . ((&lines * 18 + 23) / 46)
-exe 'vert 3resize ' . ((&columns * 106 + 106) / 212)
-tabedit main.cpp
-set splitbelow splitright
-wincmd _ | wincmd |
-vsplit
-1wincmd h
-wincmd w
-wincmd _ | wincmd |
-split
-1wincmd k
-wincmd w
-set nosplitbelow
-wincmd t
-set winminheight=0
-set winheight=1
-set winminwidth=0
-set winwidth=1
-exe 'vert 1resize ' . ((&columns * 105 + 106) / 212)
-exe '2resize ' . ((&lines * 21 + 23) / 46)
-exe 'vert 2resize ' . ((&columns * 106 + 106) / 212)
-exe '3resize ' . ((&lines * 21 + 23) / 46)
-exe 'vert 3resize ' . ((&columns * 106 + 106) / 212)
-argglobal
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let s:l = 185 - ((42 * winheight(0) + 21) / 43)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-185
-normal! 028|
-wincmd w
-argglobal
-if bufexists("include/armastuff.hpp") | buffer include/armastuff.hpp | else | edit include/armastuff.hpp | endif
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let s:l = 88 - ((20 * winheight(0) + 10) / 21)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-88
-normal! 014|
-wincmd w
-argglobal
-if bufexists("src/armastuff.cpp") | buffer src/armastuff.cpp | else | edit src/armastuff.cpp | endif
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 10) / 21)
-if s:l < 1 | let s:l = 1 | endif
-exe s:l
-normal! zt
-1
-normal! 0
-wincmd w
-3wincmd w
-exe 'vert 1resize ' . ((&columns * 105 + 106) / 212)
-exe '2resize ' . ((&lines * 21 + 23) / 46)
-exe 'vert 2resize ' . ((&columns * 106 + 106) / 212)
-exe '3resize ' . ((&lines * 21 + 23) / 46)
-exe 'vert 3resize ' . ((&columns * 106 + 106) / 212)
-tabnext 2
-set stal=1
-if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
+2wincmd w
+exe 'vert 1resize ' . ((&columns * 87 + 87) / 175)
+exe '2resize ' . ((&lines * 17 + 19) / 38)
+exe 'vert 2resize ' . ((&columns * 87 + 87) / 175)
+exe '3resize ' . ((&lines * 18 + 19) / 38)
+exe 'vert 3resize ' . ((&columns * 87 + 87) / 175)
+tabnext 1
+if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif
 unlet! s:wipebuf
-set winheight=1 winwidth=20 winminheight=1 winminwidth=1 shortmess=filnxtToOF
+set winheight=1 winwidth=20
+let &shortmess = s:shortmess_save
+let &winminheight = s:save_winminheight
+let &winminwidth = s:save_winminwidth
 let s:sx = expand("<sfile>:p:r")."x.vim"
-if file_readable(s:sx)
+if filereadable(s:sx)
   exe "source " . fnameescape(s:sx)
 endif
-let &so = s:so_save | let &siso = s:siso_save
+let &g:so = s:so_save | let &g:siso = s:siso_save
+set hlsearch
+nohlsearch
 doautoall SessionLoadPost
 unlet SessionLoad
 " vim: set ft=vim :

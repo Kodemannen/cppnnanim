@@ -1,19 +1,41 @@
 // File: src/main.cpp
-#include "Circle.hpp"
+#include "Neuron.hpp"
+#include "testClass.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <iostream>
+#include <ostream>
+
+// ['#dcdfe7', '#cc517a', '#668e3d', '#c57339', '#2d539e', '#7759b4', '#3f83a6', '#33374c', '#8389a3', '#cc3768', '#598030', '#b6662d', '#22478e', '#6845ad', '#327698', '#262a3f']
+
+// const background_color = sf::
 
 int main()
 {
     sf::Vector2f pos1(100.f, 50.f);
-    sf::Vector2f pos2(300.f, 40.f);
-    std::vector<Circle> circles;
-    circles.emplace_back(50.f, sf::Color::Green, sf::Color::Red, 5.f, pos1);
+    // sf::Vector2f pos2(300.f, 40.f);
+    // std::vector<Neuron> circles;
+    // circles.emplace_back(50.f, sf::Color(0, 0, 0), sf::Color(98, 163, 15), 5.f, pos1);
+    // circles.emplace_back(75.f, sf::Color(0, 0, 0), sf::Color(98, 163, 15), 10.f, pos2);
+    // std::cout << pos1 << std::endl;
 
-    circles.emplace_back(75.f, sf::Color::Blue, sf::Color::Yellow, 10.f, pos2);
+
+
+    Neuron n ;
+    // Neuron n2(50);
+    // Neuron n3 (50.f, pos1, 0.f, 0.f);
+    Neuron n3(pos1);
+
+    // n.setPosition(100, 50);
+
 
     sf::RenderWindow window(sf::VideoMode(200, 200), "Circles");
+    //window.setClearColor(sf::Color(98, 163, 15));
+    // window.setClearColor(sf::Color::Blue);
+
+    // How can I change background color?
+
 
     while (window.isOpen())
     {
@@ -24,11 +46,22 @@ int main()
                 window.close();
         }
 
-        window.clear();
-        for (Circle& circle : circles)
-        {
-            window.draw(circle.getShape());
-        }
+        // Set background color:
+        int grey = 160;
+        window.clear(sf::Color(grey, grey, grey));
+
+        // for (cell& cell : neurons)
+        // {
+        //     window.draw(Neuron.getShape());
+
+        // }
+
+        // for (Neuron& Neuron : circles)
+        // {
+        //     window.draw(Neuron.getShape());
+
+        // }
+
         window.display();
     }
 
@@ -43,7 +76,7 @@ int main()
 // {
 //     sf::RenderWindow window(sf::VideoMode(200, 200), "Circles");
 
-//     std::vector<Circle> circles;
+//     std::vector<Neuron> circles;
 //     circles.emplace_back(50.f, sf::Color::Green, sf::Color::Red, 5.f);
 //     circles.emplace_back(100.f, sf::Color::Blue, sf::Color::Yellow, 10.f);
 //     circles.emplace_back(75.f, sf::Color::Red, sf::Color::Green, 7.5f);
@@ -57,9 +90,9 @@ int main()
 //                 window.close();
 //         }
 //         window.clear();
-//         for (const Circle& circle : circles)
+//         for (const Neuron& Neuron : circles)
 //         {
-//             window.draw(circle.shape);
+//             window.draw(Neuron.shape);
 //         }
 //         window.display();
 //     }
@@ -76,7 +109,7 @@ int main()
 
 // int main()
 // {
-//     sf::RenderWindow window(sf::VideoMode(200, 200), "Circle");
+//     sf::RenderWindow window(sf::VideoMode(200, 200), "Neuron");
 //     sf::CircleShape shape(100.f);
 //     shape.setFillColor(sf::Color(0,0,0));
 //     shape.setOutlineThickness(5.f);
