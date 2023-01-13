@@ -2,72 +2,58 @@
 #include <iostream>
 
 
-Neuron::Neuron () {
-    std::cout << "1st constructor" << std::endl;
+//----------------------------------------------------------------------
+// Con- & destructors:
+//----------------------------------------------------------------------
+Neuron::Neuron (int index) {
+    this->index = index;
 }
-
-// Neuron::Neuron (int k) {
-//     std::cout << "2nd constructor" << std::endl;
-// }
-
-// Neuron::Neuron(int a, int b) {
-//     std::cout << "3rd constructor" << std::endl;
-// }
-Neuron::Neuron(sf::Vector2f position) {
-    std::cout << "3rd constructor" << std::endl;
-}
-
-// Neuron::Neuron(double radius, sf::Vector2f position[2], double membrane_potential, double threshold) {
-//     std::cout << "3rd constructor" << std::endl;
-// }
-
-
-// Neuron::Neuron(double radius, sf::Vector2f position[2], double membrane_potential, double threshold) {
-
-// }
-// Neuron::Neuron (int k) {
-//     // std::cout << "Neuron constructed" << std::endl;
-// }
-
 Neuron::~Neuron () {
 }
 
-//------------------------------------------------------------ 
-// setFunctions:
-//------------------------------------------------------------ 
-// void setRadius(double r) {
-//     this->radius = r;
-// }
 
-// void setPosition(int x, int y) {
-//     this->position[0] = x;
-//     this->position[1] = y;
-// }
-
-// void setMembranePotential(double m) {
-//     this->membrane_potential = m;
-// }
-
-// void setThreshold(double t) {
-//     this->threshold = t;
-// }
+//----------------------------------------------------------------------
+// Radius:
+//----------------------------------------------------------------------
+void Neuron::setRadius(double r) {
+    this->radius = r;
+}
+double Neuron::getRadius() {
+    return this->radius;
+}
 
 
-// ------------------------------------------------------------ 
-//  getFunctions:
-// ------------------------------------------------------------ 
- // void getRadius() {
- //     return this->radius;
- // }
+//----------------------------------------------------------------------
+// Position:
+//----------------------------------------------------------------------
+void Neuron::setPosition(int x, int y) {
+    this->position[0] = x;
+    this->position[1] = y;
+}
+int Neuron::getPosition() {
+    return this->position[0], this->position[1];
+}
 
- // void getPosition() {
- //     return this->position;
- // }
 
- // void getMembranePotential() {
- //     return this->membrane_potential;
- // }
+//----------------------------------------------------------------------
+// Membrane Potential:
+//----------------------------------------------------------------------
+void Neuron::setMembranePotential(double Vm) {
+    this->membrane_potential = Vm;
+}
+double Neuron::getMembranePotential() {
+    return this->membrane_potential;
+}
 
- // void Neuron::getThreshold() {
- //     return this->threshold;
- // }
+
+
+//----------------------------------------------------------------------
+// Threshold:
+//----------------------------------------------------------------------
+void Neuron::setThreshold(double treshold) {
+    this->threshold = treshold;
+}
+double Neuron::getThreshold() {
+    return this->threshold;
+}
+

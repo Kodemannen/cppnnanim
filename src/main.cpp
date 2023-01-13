@@ -1,6 +1,5 @@
 // File: src/main.cpp
 #include "Neuron.hpp"
-#include "testClass.hpp"
 
 #include <SFML/Graphics.hpp>
 #include <vector>
@@ -22,10 +21,20 @@ int main()
 
 
 
-    Neuron n ;
-    // Neuron n2(50);
+    Neuron n0 (0);
+    n0.setRadius(50.f);
+    n0.setPosition(100, 100);
+    n0.getPosition();
+    n0.setMembranePotential(70.f);
+    n0.setThreshold(0.f);
+
+    // std::cout << n0.getPosition() << std::endl;
+
+    
+
+
     // Neuron n3 (50.f, pos1, 0.f, 0.f);
-    Neuron n3(pos1);
+    // Neuron n3(pos1);
 
     // n.setPosition(100, 50);
 

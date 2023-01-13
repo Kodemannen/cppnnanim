@@ -4,21 +4,32 @@
 // 3. A scallar called membrane potential
 // 6. A scalar called threshold
 
-#include <SFML/Graphics.hpp>
+// #include <SFML/Graphics.hpp>
+
+#include <vector>
+#include <iostream>
 
 class Neuron {
     public:
-        Neuron();
-        // Neuron(int k);
-        Neuron(sf::Vector2f position);
-        // Neuron(sf::Vector2f position[2], int p);
-        // Neuron(double radius, sf::Vector2f position[2], double membrane_potential, double threshold);
-        
+        Neuron(int index);
         ~Neuron();
-        // double radius;
-        // double position[2];
-        // double membrane_potential;
-        // double threshold;
+
+        void setRadius(double r);
+        void setPosition(int x, int y);
+        void setMembranePotential(double m);
+        void setThreshold(double t);
+
+        double getRadius();
+        int getPosition();
+        double getMembranePotential();
+        double getThreshold();
+
+    private:
+        int index;
+        int position[2];
+        double radius;
+        double membrane_potential;
+        double threshold;
 
 
 };

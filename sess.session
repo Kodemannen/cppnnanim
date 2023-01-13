@@ -15,9 +15,9 @@ else
 endif
 badd +11 Snakefile
 badd +5 compile_and_run.sh
-badd +17 include/Neuron.hpp
-badd +24 src/main.cpp
-badd +5 src/Neuron.cpp
+badd +23 include/Neuron.hpp
+badd +28 src/main.cpp
+badd +20 src/Neuron.cpp
 badd +1 README.md
 argglobal
 %argdel
@@ -44,9 +44,9 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 exe 'vert 1resize ' . ((&columns * 87 + 87) / 175)
-exe '2resize ' . ((&lines * 17 + 19) / 38)
+exe '2resize ' . ((&lines * 15 + 16) / 33)
 exe 'vert 2resize ' . ((&columns * 87 + 87) / 175)
-exe '3resize ' . ((&lines * 18 + 19) / 38)
+exe '3resize ' . ((&lines * 15 + 16) / 33)
 exe 'vert 3resize ' . ((&columns * 87 + 87) / 175)
 argglobal
 balt README.md
@@ -60,19 +60,19 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 25 - ((24 * winheight(0) + 18) / 36)
+let s:l = 27 - ((10 * winheight(0) + 15) / 31)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 25
-normal! 013|
+keepjumps 27
+normal! 05|
 wincmd w
 argglobal
 if bufexists(fnamemodify("include/Neuron.hpp", ":p")) | buffer include/Neuron.hpp | else | edit include/Neuron.hpp | endif
 if &buftype ==# 'terminal'
   silent file include/Neuron.hpp
 endif
-balt Snakefile
+balt src/Neuron.cpp
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -83,12 +83,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 17 - ((16 * winheight(0) + 8) / 17)
+let s:l = 23 - ((8 * winheight(0) + 7) / 15)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 17
-normal! 0
+keepjumps 23
+normal! 011|
 wincmd w
 argglobal
 if bufexists(fnamemodify("src/Neuron.cpp", ":p")) | buffer src/Neuron.cpp | else | edit src/Neuron.cpp | endif
@@ -106,18 +106,18 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 6 - ((5 * winheight(0) + 9) / 18)
+let s:l = 15 - ((14 * winheight(0) + 7) / 15)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 6
-normal! 032|
+keepjumps 15
+normal! 0
 wincmd w
 2wincmd w
 exe 'vert 1resize ' . ((&columns * 87 + 87) / 175)
-exe '2resize ' . ((&lines * 17 + 19) / 38)
+exe '2resize ' . ((&lines * 15 + 16) / 33)
 exe 'vert 2resize ' . ((&columns * 87 + 87) / 175)
-exe '3resize ' . ((&lines * 18 + 19) / 38)
+exe '3resize ' . ((&lines * 15 + 16) / 33)
 exe 'vert 3resize ' . ((&columns * 87 + 87) / 175)
 tabnext 1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
