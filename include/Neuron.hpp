@@ -17,6 +17,10 @@ class Neuron {
         double membrane_potential;
         double threshold;
         sf::CircleShape shape;
+        sf::Color fillColor=sf::Color::Red;
+        sf::Color outlineColor=sf::Color::Green;
+        float outlineThickness=5.f;
+
 
     public:
         Neuron(int index);
@@ -31,7 +35,10 @@ class Neuron {
         void setThreshold(double t);
         double getThreshold();
 
-        void setShape(float rad, sf::Color fillColor, sf::Color outlineColor, float outlineThickness, sf::Vector2f position);
+        void setRadius(double radius);
+        double getRadius();
+
+        void setShape();
         sf::CircleShape getShape();
 
 };

@@ -12,16 +12,6 @@ Neuron::~Neuron () {
 }
 
 
-//----------------------------------------------------------------------
-// Radius:
-//----------------------------------------------------------------------
-// void Neuron::setRadius(double r) {
-//     this->radius = r;
-// }
-// double Neuron::getRadius() {
-//     return this->radius;
-// }
-
 
 //----------------------------------------------------------------------
 // Position:
@@ -61,13 +51,27 @@ double Neuron::getThreshold() {
 //----------------------------------------------------------------------
 // Shape:
 //----------------------------------------------------------------------
-void Neuron::setShape(float radius, sf::Color fillColor, sf::Color outlineColor, float outlineThickness, sf::Vector2f position) {
-    shape.setRadius(radius);
-    shape.setFillColor(fillColor);
-    shape.setOutlineColor(outlineColor);
-    shape.setOutlineThickness(outlineThickness);
-    shape.setPosition(position);
+// Radius:
+void Neuron::setRadius(double r) {
+    this->radius = r;
 }
+double Neuron::getRadius() {
+    return this->radius;
+}
+void Neuron::setShape() {
+    shape.setRadius(this->radius);
+    shape.setFillColor(this->fillColor);
+    shape.setOutlineColor(this->outlineColor);
+    shape.setOutlineThickness(this->outlineThickness);
+    shape.setPosition(sf::Vector2f(this->position[0], this->position[1]));
+}
+// void Neuron::setShape(float radius, sf::Color fillColor, sf::Color outlineColor, float outlineThickness, sf::Vector2f position) {
+//     shape.setRadius(radius);
+//     shape.setFillColor(fillColor);
+//     shape.setOutlineColor(outlineColor);
+//     shape.setOutlineThickness(outlineThickness);
+//     shape.setPosition(position);
+// }
 sf::CircleShape Neuron::getShape() {
     return this->shape;
 }

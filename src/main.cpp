@@ -30,12 +30,13 @@ int main()
 
 
     Neuron n0 (0);
-    // n0.setRadius(50.f);
+    n0.setRadius(50.f);
     n0.setPosition(100, 100);
     n0.getPosition();
     n0.setMembranePotential(70.f);
     n0.setThreshold(0.f);
-    n0.setShape(50.f, sf::Color::Green, sf::Color::Red, 5.f, pos1);
+    // n0.setShape(50.f, sf::Color::Green, sf::Color::Red, 5.f, pos1);
+    n0.setShape();
 
     // std::cout << n0.getPosition() << std::endl;
 
