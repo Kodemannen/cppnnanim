@@ -13,12 +13,12 @@ class Neuron {
     private:
         int index;
         int position[2];
-        double radius;
-        double membrane_potential;
-        double threshold;
+        double radius=1;
+        double membrane_potential=0;
+        double threshold=1;
         sf::CircleShape shape;
-        sf::Color fillColor=sf::Color::Red;
-        sf::Color outlineColor=sf::Color::Green;
+        sf::Color fillColor=sf::Color(0,0,0);
+        sf::Color outlineColor=sf::Color(0,0,0);
         float outlineThickness=5.f;
 
 
@@ -27,7 +27,11 @@ class Neuron {
         ~Neuron();
 
         void setPosition(int x, int y);
-        int getPosition();
+        int* getPosition();
+        void setPositionX(int x);
+        void setPositionY(int y);
+        int getPositionX();
+        int getPositionY();
 
         void setMembranePotential(double m);
         double getMembranePotential();

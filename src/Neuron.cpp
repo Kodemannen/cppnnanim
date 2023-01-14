@@ -20,8 +20,25 @@ void Neuron::setPosition(int x, int y) {
     this->position[0] = x;
     this->position[1] = y;
 }
-int Neuron::getPosition() {
-    return this->position[0], this->position[1];
+void Neuron::setPositionX(int x) {
+    this->position[0] = x;
+}
+void Neuron::setPositionY(int y) {
+    this->position[1] = y;
+}
+
+int* Neuron::getPosition() {
+    //return this->position[0], this->position[1];
+    return this->position;
+}
+
+int Neuron::getPositionX() {
+    //return this->position[0], this->position[1];
+    return this->position[0];
+}
+int Neuron::getPositionY() {
+    //return this->position[0], this->position[1];
+    return this->position[1];
 }
 
 

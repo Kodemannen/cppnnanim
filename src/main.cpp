@@ -1,6 +1,8 @@
 // File: src/main.cpp
 #include "Neuron.hpp"
 
+#include <unistd.h> // usleep
+
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
@@ -30,17 +32,19 @@ int main()
 
 
     Neuron n0 (0);
-    n0.setRadius(50.f);
-    n0.setPosition(100, 100);
+    // n0.setRadius(50.f);
+    n0.setPosition(100, 20);
     n0.getPosition();
     n0.setMembranePotential(70.f);
     n0.setThreshold(0.f);
     // n0.setShape(50.f, sf::Color::Green, sf::Color::Red, 5.f, pos1);
     n0.setShape();
 
-    // std::cout << n0.getPosition() << std::endl;
 
-    
+    int* n0pos = n0.getPosition();
+    std::cout << n0pos[0] << std::endl;
+    std::cout << n0pos[1] << std::endl;
+
 
 
     // Neuron n3 (50.f, pos1, 0.f, 0.f);
@@ -49,7 +53,7 @@ int main()
     // n.setPosition(100, 50);
 
 
-    sf::RenderWindow window(sf::VideoMode(200, 200), "Circles");
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "SFML Window");
     //window.setClearColor(sf::Color(98, 163, 15));
     // window.setClearColor(sf::Color::Blue);
 
@@ -70,6 +74,10 @@ int main()
         window.clear(sf::Color(grey, grey, grey));
 
         window.draw(n0.getShape());
+
+        std::cout.flush();
+        usleep(1000);
+        
 
         // for (cell& cell : neurons)
         // {
