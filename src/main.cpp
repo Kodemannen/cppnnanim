@@ -10,11 +10,19 @@
 
 // const background_color = sf::
 
+
+
+// function that converts std::vector to sf::Vector2f
+sf::Vector2f toVector2f(std::vector<double> vec) {
+    return sf::Vector2f(vec[0], vec[1]);
+}
+
 int main()
 {
     sf::Vector2f pos1(100.f, 50.f);
-    // sf::Vector2f pos2(300.f, 40.f);
-    // std::vector<Neuron> circles;
+    sf::Vector2f pos2(300.f, 40.f);
+    std::vector<Neuron> Neurons;
+
     // circles.emplace_back(50.f, sf::Color(0, 0, 0), sf::Color(98, 163, 15), 5.f, pos1);
     // circles.emplace_back(75.f, sf::Color(0, 0, 0), sf::Color(98, 163, 15), 10.f, pos2);
     // std::cout << pos1 << std::endl;
@@ -22,11 +30,12 @@ int main()
 
 
     Neuron n0 (0);
-    n0.setRadius(50.f);
+    // n0.setRadius(50.f);
     n0.setPosition(100, 100);
     n0.getPosition();
     n0.setMembranePotential(70.f);
     n0.setThreshold(0.f);
+    n0.setShape(50.f, sf::Color::Green, sf::Color::Red, 5.f, pos1);
 
     // std::cout << n0.getPosition() << std::endl;
 
@@ -59,15 +68,17 @@ int main()
         int grey = 160;
         window.clear(sf::Color(grey, grey, grey));
 
+        window.draw(n0.getShape());
+
         // for (cell& cell : neurons)
         // {
         //     window.draw(Neuron.getShape());
 
         // }
 
-        // for (Neuron& Neuron : circles)
+        // for (n& n : circles)
         // {
-        //     window.draw(Neuron.getShape());
+        //     window.draw(n.getShape());
 
         // }
 

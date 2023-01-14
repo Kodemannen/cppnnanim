@@ -15,12 +15,12 @@ Neuron::~Neuron () {
 //----------------------------------------------------------------------
 // Radius:
 //----------------------------------------------------------------------
-void Neuron::setRadius(double r) {
-    this->radius = r;
-}
-double Neuron::getRadius() {
-    return this->radius;
-}
+// void Neuron::setRadius(double r) {
+//     this->radius = r;
+// }
+// double Neuron::getRadius() {
+//     return this->radius;
+// }
 
 
 //----------------------------------------------------------------------
@@ -57,3 +57,17 @@ double Neuron::getThreshold() {
     return this->threshold;
 }
 
+
+//----------------------------------------------------------------------
+// Shape:
+//----------------------------------------------------------------------
+void Neuron::setShape(float radius, sf::Color fillColor, sf::Color outlineColor, float outlineThickness, sf::Vector2f position) {
+    shape.setRadius(radius);
+    shape.setFillColor(fillColor);
+    shape.setOutlineColor(outlineColor);
+    shape.setOutlineThickness(outlineThickness);
+    shape.setPosition(position);
+}
+sf::CircleShape Neuron::getShape() {
+    return this->shape;
+}
