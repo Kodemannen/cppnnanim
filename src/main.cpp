@@ -1,5 +1,6 @@
 // File: src/main.cpp
-#include "Neuron.hpp"
+// #include "Neuron.hpp"
+#include "NetworkOfNeurons.hpp"
 
 #include <unistd.h> // usleep
 
@@ -21,43 +22,26 @@ sf::Vector2f toVector2f(std::vector<double> vec) {
 
 int main()
 {
-    sf::Vector2f pos1(100.f, 50.f);
-    sf::Vector2f pos2(300.f, 40.f);
-    std::vector<Neuron> Neurons;
+    // sf::Vector2f pos1(100.f, 50.f);
+    // sf::Vector2f pos2(300.f, 40.f);
+    // std::vector<Neuron> Neurons;
 
     // circles.emplace_back(50.f, sf::Color(0, 0, 0), sf::Color(98, 163, 15), 5.f, pos1);
     // circles.emplace_back(75.f, sf::Color(0, 0, 0), sf::Color(98, 163, 15), 10.f, pos2);
     // std::cout << pos1 << std::endl;
 
 
+    NetworkOfNeurons NN (10, 100, 100, 30);
 
-    Neuron n0 (0);
-    // n0.setRadius(50.f);
-    n0.setPosition(100, 20);
-    n0.getPosition();
-    n0.setMembranePotential(70.f);
-    n0.setThreshold(0.f);
-    // n0.setShape(50.f, sf::Color::Green, sf::Color::Red, 5.f, pos1);
-    n0.setShape();
+    // Neuron n0 (0);
+    // n0.setShape();
 
 
-    int* n0pos = n0.getPosition();
-    std::cout << n0pos[0] << std::endl;
-    std::cout << n0pos[1] << std::endl;
+    // sf::VideoMode(width, height, bitsPerPixel)
+    sf::RenderWindow window(sf::VideoMode(1920, 1080, 8), 
+                            "SFML Window", 
+                            sf::Style::Fullscreen);
 
-
-
-    // Neuron n3 (50.f, pos1, 0.f, 0.f);
-    // Neuron n3(pos1);
-
-    // n.setPosition(100, 50);
-
-
-    sf::RenderWindow window(sf::VideoMode(1920, 1080), "SFML Window");
-    //window.setClearColor(sf::Color(98, 163, 15));
-    // window.setClearColor(sf::Color::Blue);
-
-    // How can I change background color?
 
 
     while (window.isOpen())
@@ -72,8 +56,16 @@ int main()
         // Set background color:
         int grey = 160;
         window.clear(sf::Color(grey, grey, grey));
+        // window.clear(sf::Color(98, 163, 15));
+        // window.clear(sf::Color(133, 33, 183));
 
-        window.draw(n0.getShape());
+        // window.draw(n0.getShape());
+        for (int i = 0; i < NN.getSize(); i++) {
+            window.draw(NN.getNeuron(i).getShape());
+        }
+
+        // n0pos[0] = n0pos[0] + 1;
+        // n0.setShape();
 
         std::cout.flush();
         usleep(1000);

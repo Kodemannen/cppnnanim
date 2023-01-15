@@ -15,13 +15,18 @@ else
 endif
 badd +11 Snakefile
 badd +5 compile_and_run.sh
-badd +23 include/Neuron.hpp
-badd +28 src/main.cpp
+badd +19 include/Neuron.hpp
+badd +42 src/main.cpp
 badd +20 src/Neuron.cpp
 badd +1 README.md
+badd +1 include/NetworkOfNeurons.hpp
+badd +0 src/NetworkOfNeurons.cpp
 argglobal
 %argdel
 $argadd Snakefile
+set stal=2
+tabnew +setlocal\ bufhidden=wipe
+tabrewind
 edit src/main.cpp
 let s:save_splitbelow = &splitbelow
 let s:save_splitright = &splitright
@@ -44,9 +49,9 @@ set winheight=1
 set winminwidth=0
 set winwidth=1
 exe 'vert 1resize ' . ((&columns * 87 + 87) / 175)
-exe '2resize ' . ((&lines * 15 + 16) / 33)
+exe '2resize ' . ((&lines * 19 + 21) / 42)
 exe 'vert 2resize ' . ((&columns * 87 + 87) / 175)
-exe '3resize ' . ((&lines * 15 + 16) / 33)
+exe '3resize ' . ((&lines * 19 + 21) / 42)
 exe 'vert 3resize ' . ((&columns * 87 + 87) / 175)
 argglobal
 balt README.md
@@ -60,12 +65,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 27 - ((10 * winheight(0) + 15) / 31)
+let s:l = 27 - ((0 * winheight(0) + 19) / 39)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
 keepjumps 27
-normal! 05|
+normal! 0
 wincmd w
 argglobal
 if bufexists(fnamemodify("include/Neuron.hpp", ":p")) | buffer include/Neuron.hpp | else | edit include/Neuron.hpp | endif
@@ -83,12 +88,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 23 - ((8 * winheight(0) + 7) / 15)
+let s:l = 19 - ((18 * winheight(0) + 9) / 19)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 23
-normal! 011|
+keepjumps 19
+normal! 0
 wincmd w
 argglobal
 if bufexists(fnamemodify("src/Neuron.cpp", ":p")) | buffer src/Neuron.cpp | else | edit src/Neuron.cpp | endif
@@ -106,7 +111,7 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 15 - ((14 * winheight(0) + 7) / 15)
+let s:l = 15 - ((0 * winheight(0) + 9) / 19)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
@@ -115,11 +120,76 @@ normal! 0
 wincmd w
 2wincmd w
 exe 'vert 1resize ' . ((&columns * 87 + 87) / 175)
-exe '2resize ' . ((&lines * 15 + 16) / 33)
+exe '2resize ' . ((&lines * 19 + 21) / 42)
 exe 'vert 2resize ' . ((&columns * 87 + 87) / 175)
-exe '3resize ' . ((&lines * 15 + 16) / 33)
+exe '3resize ' . ((&lines * 19 + 21) / 42)
 exe 'vert 3resize ' . ((&columns * 87 + 87) / 175)
+tabnext
+edit include/NetworkOfNeurons.hpp
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe 'vert 1resize ' . ((&columns * 87 + 87) / 175)
+exe 'vert 2resize ' . ((&columns * 87 + 87) / 175)
+argglobal
+balt src/NetworkOfNeurons.cpp
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 1 - ((0 * winheight(0) + 19) / 39)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 0
+wincmd w
+argglobal
+if bufexists(fnamemodify("src/NetworkOfNeurons.cpp", ":p")) | buffer src/NetworkOfNeurons.cpp | else | edit src/NetworkOfNeurons.cpp | endif
+if &buftype ==# 'terminal'
+  silent file src/NetworkOfNeurons.cpp
+endif
+balt include/NetworkOfNeurons.hpp
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 1 - ((0 * winheight(0) + 19) / 39)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 0
+wincmd w
+exe 'vert 1resize ' . ((&columns * 87 + 87) / 175)
+exe 'vert 2resize ' . ((&columns * 87 + 87) / 175)
 tabnext 1
+set stal=1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf
 endif

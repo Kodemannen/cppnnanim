@@ -12,14 +12,14 @@
 class Neuron {
     private:
         int index;
-        int position[2];
-        double radius=1;
+        int position[2] = {110, 120};
+        double radius=10;
         double membrane_potential=0;
         double threshold=1;
         sf::CircleShape shape;
-        sf::Color fillColor=sf::Color(0,0,0);
+        sf::Color fillColor=sf::Color(80,80,80);
         sf::Color outlineColor=sf::Color(0,0,0);
-        float outlineThickness=5.f;
+        float outlineThickness=2.f;
 
 
     public:

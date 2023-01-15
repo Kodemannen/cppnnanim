@@ -1,3 +1,4 @@
 Neuron
 .snakemake
+.logerr
 __pycache__

@@ -3,10 +3,11 @@
 
 
 //----------------------------------------------------------------------
-// Con- & destructors:
+// Constructor & destructor:
 //----------------------------------------------------------------------
 Neuron::Neuron (int index) {
     this->index = index;
+    this->setShape();
 }
 Neuron::~Neuron () {
 }

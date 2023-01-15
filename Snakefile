@@ -3,6 +3,9 @@ rule all:
         "src/main.cpp",
         "src/Neuron.cpp",
         "include/Neuron.hpp",
+        "src/NetworkOfNeurons.cpp",
+        "include/NetworkOfNeurons.hpp"
+
     output: "Neuron"
     log: 
         out = ".logerr/_stdout.log",
